@@ -1,79 +1,112 @@
-# 🎬 YouTube Comment Sentiment Analyzer & Creator Studio
+<div align="center">
+
+# 🎬 YouTube Comment Sentiment Analyzer & AI Creator Studio
+
+An end-to-end, high-performance Machine Learning web application and MLOps system that extracts live YouTube comments in real-time and classifies audience feedback into **Positive**, **Neutral**, and **Negative** sentiments with interactive creator analytics.
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io)
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
-![LightGBM](https://img.shields.io/badge/Model-LightGBM-blue)
-![Scikit--Learn](https://img.shields.io/badge/Vectorization-TF--IDF%20Trigram-orange?logo=scikit-learn&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
+[![Python Version](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![LightGBM](https://img.shields.io/badge/Model-LightGBM-blue?logo=lightning)](https://lightgbm.readthedocs.io/)
+[![Scikit-Learn](https://img.shields.io/badge/NLP-TF--IDF%20Trigram-orange?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![DVC Tracked](https://img.shields.io/badge/Data%20Version%20Control-DVC-945DD6?logo=dvc&logoColor=white)](https://dvc.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-An end-to-end, high-performance Machine Learning web application built with **Streamlit** that fetches live YouTube comments and classifies audience feedback into **Positive**, **Neutral**, and **Negative** sentiments with real-time analytics.
+[**Live Demo**](https://share.streamlit.io) • [**Report Bug**](https://github.com/sanjuDiatm-design/yt-comment-sentiment-analysis/issues) • [**Request Feature**](https://github.com/sanjuDiatm-design/yt-comment-sentiment-analysis/issues)
 
----
-
-## 🌟 Key Highlights
-
-- ⚡ **Zero-API-Key Live Scraping:** Analyze comments from any public YouTube video URL directly using a resilient multi-tier extraction engine (no Google Cloud API quota or credentials needed).
-- 🧠 **Trained ML Architecture:** High-speed **LightGBM** classifier paired with sublinear **Trigram TF-IDF** vectorization for nuanced sentiment prediction.
-- 🇮🇳 **Hinglish & Slang Normalization:** Built-in false-friend disambiguation for mixed Hindi-English phrases (e.g., distinguishing colloquial Hindi *"mere/mera"* and *"ke baad"* from English negative false-friends).
-- 📊 **Executive Analytics & Visualizations:**
-  - Sentiment breakdown doughnut charts and sentiment health score gauges
-  - Dual positive/negative interactive **Word Clouds**
-  - High-confidence classification telemetry & prediction distributions
-  - Keyword and entity extraction for audience voice analysis
-- 📥 **Interactive Data Export:** Inspect preprocessed tokens and filter comments with one-click **CSV export**.
+</div>
 
 ---
 
-## 📸 App Preview & Workflow
+## 🌟 Key Features
+
+### ⚡ 1. Real-Time Scraping Without API Keys
+- Direct, multi-threaded InnerTube scraping pipeline capable of pulling hundreds of comments from any public YouTube video URL in seconds.
+- **No Google Cloud API keys, quotas, or credentials required.**
+- Embedded video player preview alongside instant extraction telemetry.
+
+### 🧠 2. Dual-Engine Sentiment Intelligence
+- **Trained Machine Learning Model:** High-speed **LightGBM** classifier trained on diverse social media comment datasets.
+- **Sublinear Trigram TF-IDF Vectorization:** Captures 1-to-3 word context combinations for nuanced understanding.
+- **Hinglish & Regional Slang Normalization:** Built-in linguistic mapping for Hindi-English transliterations (e.g., distinguishing colloquial *"mera / mere"* and *"ke baad"* from English negative false-friends).
+
+### 📊 3. Creator Studio Dashboard & Visualizations
+- **Executive Sentiment Snapshot:** Net Sentiment Score (NSS) verdict card with positive/neutral/negative percentage split.
+- **Sentiment Gauge & Donut Charts:** Dynamic gauge ranging from -100 (Hostile) to +100 (Acclaimed).
+- **Interactive Word Clouds:** High-contrast word clouds visualizing dominant positive praise and critical feedback themes.
+- **Top Comment Spotlight:** Automatically detects and spotlights top praising comments and frequent viewer critiques.
+- **Interactive Data Explorer:** Filter, search, and inspect cleaned tokens with 1-click **CSV Export**.
+
+### 🧪 4. Flexible Input Modes
+1. **Live YouTube URL Analysis:** Paste any link (standard, short, or mobile URLs).
+2. **Single Comment Sandbox:** Test raw custom sentences and inspect TF-IDF token outputs.
+3. **Bulk CSV Upload:** Upload any CSV containing a `Comment` column for instant batch classification.
+
+---
+
+## 🏗️ System Architecture
 
 ```text
-  [ YouTube URL / Manual Text / CSV ]
+       ┌────────────────────────┐
+       │   YouTube Video URL    │  / CSV Batch / Single Text
+       └───────────┬────────────┘
                    │
                    ▼
-  [ Preprocessing & Hinglish Normalizer ]
+       ┌────────────────────────┐
+       │  Extraction Engine     │ (Multi-tier InnerTube Scraper)
+       └───────────┬────────────┘
                    │
                    ▼
-  [ Trigram TF-IDF Vectorizer (pkl) ]
+       ┌────────────────────────┐
+       │  NLP Preprocessing     │ (Regex, Hinglish Normalizer,
+       │  & Lemmatization       │  WordNet Lemmatizer, Stopwords)
+       └───────────┬────────────┘
                    │
                    ▼
-       [ LightGBM Model (pkl) ]
+       ┌────────────────────────┐
+       │ Trigram TF-IDF (pkl)   │ (Feature Extraction)
+       └───────────┬────────────┘
                    │
                    ▼
- [ Streamlit Dashboard: Metrics | WordClouds | Filterable Data ]
+       ┌────────────────────────┐
+       │   LightGBM Classifier  │ (Inference & Confidence Scoring)
+       └───────────┬────────────┘
+                   │
+                   ▼
+ ┌─────────────────────────────────────────────────────────┐
+ │            Streamlit Creator Studio UI                  │
+ │  • Video Player Preview    • Executive Sentiment Card   │
+ │  • Net Sentiment Gauge     • Dual Word Clouds           │
+ │  • Distribution Analytics  • Filterable Data & CSV Export│
+ └─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🚀 Deployment to Streamlit Community Cloud
+## 🚀 One-Click Deployment to Streamlit Cloud
 
-This repository is pre-configured and 100% ready for one-click deployment on **[Streamlit Community Cloud](https://share.streamlit.io)**:
+This repository is pre-configured and 100% ready for deployment on **[Streamlit Community Cloud](https://share.streamlit.io)**:
 
-1. **Fork or Push** this repository to your GitHub account:
-   ```bash
-   git add .
-   git commit -m "Deploy: Prepare repository for Streamlit Community Cloud"
-   git push origin master
-   ```
-2. Go to **[share.streamlit.io](https://share.streamlit.io)** and log in with GitHub.
+1. **Fork or Push** this repository to your GitHub account (`sanjuDiatm-design/yt-comment-sentiment-analysis`).
+2. Log in at **[share.streamlit.io](https://share.streamlit.io)** using your GitHub credentials.
 3. Click **New app** and configure:
-   - **Repository:** `your-username/yt-comment-sentiment-analysis`
+   - **Repository:** `sanjuDiatm-design/yt-comment-sentiment-analysis`
    - **Branch:** `master`
    - **Main file path:** `streamlit_app.py`
-4. Click **Deploy!** — Streamlit will automatically install dependencies from `requirements.txt` and launch the app in seconds.
+4. Click **Deploy!**
 
-> **Note:** The model artifacts (`lgbm_model.pkl` and `tfidf_vectorizer.pkl`, ~4.5 MB total) are included directly in the repository, so no external storage bucket setup is required.
+> **Note:** The serialized model artifacts (`lgbm_model.pkl` ~4.1 MB and `tfidf_vectorizer.pkl` ~340 KB) are included directly in the repository, so no external AWS S3 bucket is required for the web application to run.
 
 ---
 
-## 💻 Local Development Setup
+## 💻 Local Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/yt-comment-sentiment-analysis.git
+git clone https://github.com/sanjuDiatm-design/yt-comment-sentiment-analysis.git
 cd yt-comment-sentiment-analysis
 ```
 
-### 2. Create and Activate a Virtual Environment
+### 2. Create and Activate Virtual Environment
 ```bash
 # Windows (PowerShell)
 python -m venv .venv
@@ -84,12 +117,12 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 3. Install Required Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the Streamlit Application
+### 4. Launch the Web Application
 ```bash
 streamlit run streamlit_app.py
 ```
@@ -97,26 +130,44 @@ Open your browser at `http://localhost:8501`.
 
 ---
 
-## 📂 Project Structure
+## 🐳 Docker Deployment
+
+You can also run the application using Docker:
+
+```bash
+# Build the Docker image
+docker build -t yt-sentiment-studio .
+
+# Run the container
+docker run -p 8501:8501 yt-sentiment-studio
+```
+Access the application at `http://localhost:8501`.
+
+---
+
+## 📁 Repository Structure
 
 ```text
 yt-comment-sentiment-analysis/
 ├── .streamlit/
-│   └── config.toml               # Custom dark theme & server configuration
-├── src/                          # Model training & preprocessing pipelines
+│   └── config.toml               # Streamlit custom dark theme configuration
+├── src/                          # Model training & pipeline modules
 │   ├── data/
-│   │   ├── data_ingestion.py
-│   │   └── data_preprocessing.py
+│   │   ├── data_ingestion.py     # Data ingestion & train/test splitting
+│   │   └── data_preprocessing.py # Text preprocessing & Hinglish regex mapping
 │   └── model/
-│       ├── model_building.py
-│       ├── model_evaluation.py
-│       └── register_model.py
-├── lgbm_model.pkl                # Trained LightGBM sentiment model (~4.1 MB)
+│       ├── model_building.py     # LightGBM training & vectorizer export
+│       ├── model_evaluation.py   # Metrics computation & confusion matrix
+│       └── register_model.py     # Model registry management
+├── lgbm_model.pkl                # Trained LightGBM classifier (~4.1 MB)
 ├── tfidf_vectorizer.pkl          # Serialized TF-IDF feature extractor (~340 KB)
 ├── streamlit_app.py              # Main interactive Streamlit application
-├── requirements.txt              # Production deployment dependencies
+├── requirements.txt              # Production Python dependencies
 ├── runtime.txt                   # Target Python runtime (python-3.11)
-├── .gitignore                    # Deployment-optimized ignore rules
+├── params.yaml                   # Model & ingestion hyperparameters
+├── dvc.yaml                      # DVC pipeline stages definition
+├── Dockerfile                    # Containerization configuration
+├── .gitignore                    # Git ignore specifications
 └── README.md                     # Project documentation
 ```
 
@@ -124,17 +175,35 @@ yt-comment-sentiment-analysis/
 
 ## 🛠️ Technology Stack
 
-| Component | Technology |
+| Domain | Technology / Library |
 |---|---|
-| **Frontend & UI** | [Streamlit](https://streamlit.io/) |
+| **Frontend Framework** | [Streamlit](https://streamlit.io/) |
 | **Machine Learning** | [LightGBM](https://lightgbm.readthedocs.io/), [scikit-learn](https://scikit-learn.org/) |
 | **Natural Language Processing** | [NLTK](https://www.nltk.org/), Regular Expressions |
-| **Interactive Charts** | [Plotly](https://plotly.com/), [Matplotlib](https://matplotlib.org/), [WordCloud](https://github.com/amueller/word_cloud) |
-| **YouTube Scraper** | Custom InnerTube Scraper + [youtube-comment-downloader](https://github.com/egbertbouman/youtube-comment-downloader) |
-| **Data Handling** | [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/) |
+| **Interactive Visualizations** | [Plotly Express & Graph Objects](https://plotly.com/), [Matplotlib](https://matplotlib.org/), [WordCloud](https://github.com/amueller/word_cloud) |
+| **Web Scraping** | InnerTube API Scraper + [youtube-comment-downloader](https://github.com/egbertbouman/youtube-comment-downloader) |
+| **Data Manipulation** | [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/) |
+| **MLOps & Versioning** | [DVC (Data Version Control)](https://dvc.org/) |
 
 ---
 
-## 📄 License
+## 🤝 Contributing
 
-This project is licensed under the [MIT License](LICENSE).
+Contributions, issues, and feature requests are welcome!
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'feat: Add AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+<div align="center">
+Made with ❤️ by <a href="https://github.com/sanjuDiatm-design">sanjuDiatm-design</a>
+</div>
