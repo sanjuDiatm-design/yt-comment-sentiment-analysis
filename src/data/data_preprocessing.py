@@ -31,6 +31,27 @@ logger.addHandler(file_handler)
 nltk.download('wordnet')
 nltk.download('stopwords')
 
+# Hinglish & false-friend normalization mappings
+HINGLISH_MAPPINGS = [
+    (r'\b(ke\s+bad|ke\s+baad|iske\s+bad|iske\s+baad)\b', 'after'),
+    (r'\b(baad|bad\s+me)\b', 'after'),
+    (r'\b(mere|mera|meri|apna|apne|apni)\b', 'my'),
+    (r'\b(apka|aapka|apki|aapki|tumhara|tumhari|tere|tera|teri)\b', 'your'),
+    (r'\b(aap|app|tum|tu)\b', 'you'),
+    (r'\b(humare|hamare|humaara)\b', 'our'),
+    (r'\b(mereko|mujhe)\b', 'me'),
+    (r'\b(tereko|tujhe)\b', 'you'),
+    (r'\b(bhaiya|bhai|bro|bhaya|sirji)\b', 'brother'),
+    (r'\b(bohot|bahut|bht|bhut)\s+(achha|acha|accha|badhiya|mast|shandar|sahi)\b', 'very good'),
+    (r'\b(badhiya|zabardast|shandar|lajawab|kamaal|kamal|mast|ek\s+number|op|osm)\b', 'awesome'),
+    (r'\b(achha|acha|accha|sahi)\b', 'good'),
+    (r'\b(dhanyawad|shukriya)\b', 'thank you'),
+    (r'\b(pyar|prem)\b', 'love'),
+    (r'\b(maza|maja)\s+(aa\s+gaya|agaya)\b', 'great'),
+    (r'\b(bakwas|ghatiya|bekar|faltu|fultu|kachra)\b', 'worst useless'),
+    (r'\b(dhoka|dhokha|chori)\b', 'cheat scam'),
+]
+
 # Define the preprocessing function
 def preprocess_comment(comment):
     """Apply preprocessing transformations to a comment."""
@@ -43,6 +64,10 @@ def preprocess_comment(comment):
 
         # Remove newline characters
         comment = re.sub(r'\n', ' ', comment)
+
+        # Normalize Hinglish false-friends & expressions
+        for pattern, repl in HINGLISH_MAPPINGS:
+            comment = re.sub(pattern, repl, comment, flags=re.IGNORECASE)
 
         # Remove non-alphanumeric characters, except punctuation
         comment = re.sub(r'[^A-Za-z0-9\s!?.,]', '', comment)
