@@ -1,3 +1,15 @@
+---
+title: YouTube Comment Sentiment Analyzer
+emoji: 🎬
+colorFrom: red
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.35.0
+app_file: streamlit_app.py
+pinned: false
+license: mit
+---
+
 <div align="center">
 
 # 🎬 YouTube Comment Sentiment Analyzer & AI Creator Studio
